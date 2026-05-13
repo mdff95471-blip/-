@@ -10,7 +10,7 @@
     <title>LALA TopUp Admin</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
-        body { background-color: #000; color: white; min-height: 100vh; }
+        body { background-color: #000; color: white; min-height: 100vh; overflow-x: hidden; }
 
         /* 1. Adult Warning Overlay */
         #warning-overlay {
@@ -24,23 +24,44 @@
         .btn-green, .btn-red { padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1; color: white; }
         .btn-green { background: #2ecc71; } .btn-red { background: #ff4757; }
 
-        /* 2. Selection Menu (New) */
-        #selection-menu { display: none; padding: 20px; text-align: center; margin-top: 50px; }
-        .menu-grid { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        /* 2. Selection Menu (YouTube Style Cards) */
+        #selection-menu { display: none; padding: 20px; text-align: center; margin-top: 30px; }
+        .menu-grid { display: flex; flex-direction: column; gap: 25px; align-items: center; }
+        
+        .menu-card-wrapper { width: 100%; max-width: 360px; text-align: center; }
+        
         .menu-card { 
-            background: #1e1e1e; border: 1px solid #333; border-radius: 15px; 
-            width: 90%; max-width: 320px; padding: 30px; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.1); transition: 0.3s;
+            width: 100%;
+            aspect-ratio: 16 / 9; /* YouTube Thumbnail Size */
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #333;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.15);
         }
-        .menu-card:active { transform: scale(0.95); border-color: #ff4757; }
-        .menu-card h3 { color: #ff4757; margin-bottom: 10px; }
+        .menu-card:active { transform: scale(0.96); border-color: #ff4757; }
+
+        .card-label-btn {
+            margin-top: 10px;
+            background: #1e1e1e;
+            color: #ff4757;
+            border: 1px solid #333;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            width: 85%;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
         /* 3. Login Page */
         #login-page { display: none; height: 100vh; flex-direction: column; }
         .app-bar { padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; background: #121212; border-bottom: 1px solid #333; }
         .login-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
         .login-card { background: #1e1e1e; padding: 30px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; }
-        input { width: 100%; padding: 14px; margin: 10px 0; background: #2d2d2d; border: 1px solid #444; border-radius: 10px; color: white; }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #2d2d2d; border: 1px solid #444; border-radius: 10px; color: white; outline: none; }
         #login-btn { width: 100%; padding: 14px; background: #ff5252; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; }
 
         /* 4. Content Pages */
@@ -83,14 +104,13 @@
             margin: 10px auto 0 auto; 
             border: none; 
             cursor: pointer; 
-            box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); 
             width: 85%;
         }
     </style>
 </head>
 <body>
 
-    <!-- 1. Adult Warning Overlay -->
+    <!-- 1. Adult Warning -->
     <div id="warning-overlay">
         <div class="notice-box">
             <div class="notice-header">🔞 ADULT WARNING NOTICE 🔞</div>
@@ -102,18 +122,23 @@
         </div>
     </div>
 
-    <!-- 2. Selection Menu (New Step) -->
+    <!-- 2. Two Cards Selection -->
     <div id="selection-menu">
-        <h2 style="margin-bottom: 30px;">Select an Option</h2>
+        <h2 style="margin-bottom: 25px; font-style: italic;">Select Option</h2>
         <div class="menu-grid">
-            <div class="menu-card" onclick="goToLogin('number')">
-                <h3>🔢 Number List</h3>
-                <p style="font-size: 13px; color: #aaa;">View all contact numbers</p>
+            
+            <!-- Card 1: Number List -->
+            <div class="menu-card-wrapper">
+                <div class="menu-card" onclick="goToLogin('number')" style="background-image: url('file_00000000ddfc7208bd0baf5324ead328.png');"></div>
+                <button class="card-label-btn" onclick="goToLogin('number')">🔢 Number List</button>
             </div>
-            <div class="menu-card" onclick="goToLogin('video')">
-                <h3>🎬 Video Services</h3>
-                <p style="font-size: 13px; color: #aaa;">Access video content</p>
+
+            <!-- Card 2: Video Services -->
+            <div class="menu-card-wrapper">
+                <div class="menu-card" onclick="goToLogin('video')" style="background-image: url('IMG_20260512_165429_423.jpg');"></div>
+                <button class="card-label-btn" onclick="goToLogin('video')">🎬 Video Services</button>
             </div>
+
         </div>
     </div>
 
@@ -130,7 +155,7 @@
         </div>
     </div>
 
-    <!-- 4. Home Page (Video) -->
+    <!-- 4. Video Content Page -->
     <div id="home-page">
         <h2 class="video-title">Video Services</h2>
         <div class="grid-container">
@@ -142,23 +167,24 @@
                 <img src="Screenshot_2026-05-12-19-23-06-33_948cd9899890cbd5c2798760b2b95377.jpg?v=2" alt="Thumb 2">
                 <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v2')">Play</button>
             </div>
-            <!-- বাকি ভিডিও কার্ডগুলো এখানে থাকবে -->
+            <div class="card">
+                <img src="IMG_20260512_165429_423.jpg?v=3.2" alt="Thumb 3">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v3')">Play</button>
+            </div>
         </div>
     </div>
 
     <!-- 5. Number Page -->
     <div id="number-page">
-        <h2 class="video-title" style="color: #2ecc71;">Number Selection</h2>
-        <div style="text-align: center; margin-top: 20px;">
-            <p>এখানে আপনার নাম্বার অপশনগুলো আসবে।</p>
-        </div>
+        <h2 class="video-title" style="color: #2ecc71;">Number Services</h2>
+        <p style="text-align: center; margin-top: 30px; color: #aaa;">নাম্বার অপশনগুলো এখানে আপডেট করা হবে।</p>
     </div>
 
     <script>
         let selectedCategory = "";
 
+        // অ্যাপ পুরোপুরি বন্ধ করে ঢুকলে যাতে আবার শুরু থেকে আসে
         window.onload = function() {
-            // সেশন চেক (রিফ্রেশ করলে যাতে কার্ড মেনু থেকে শুরু হয়)
             sessionStorage.removeItem('isLoggedIn'); 
         };
 
@@ -176,16 +202,19 @@
         function handleLogin() {
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
+            
             if(u === "admin" && p === "1234") {
                 sessionStorage.setItem('isLoggedIn', 'true');
                 document.getElementById('login-page').style.display = 'none';
                 
                 if(selectedCategory === 'video') {
                     document.getElementById('home-page').style.display = 'block';
-                } else if(selectedCategory === 'number') {
+                } else {
                     document.getElementById('number-page').style.display = 'block';
                 }
-            } else { alert("ভুল পাসওয়ার্ড!"); }
+            } else {
+                alert("ভুল পাসওয়ার্ড!");
+            }
         }
 
         function handlePlay(ytLink, tgLink) {
