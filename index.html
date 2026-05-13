@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>LALA TopUp Admin</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #000; color: white; min-height: 100vh; }
+
+        /* 1. Adult Warning Overlay */
+        #warning-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.96); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; padding: 20px;
+        }
+        .notice-box { background: #1e1e1e; border: 1px solid #ff4757; border-radius: 15px; width: 100%; max-width: 450px; padding: 20px; text-align: center; }
+        .notice-header { background: #ff4757; color: white; padding: 10px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; }
+        .btn-green, .btn-red { padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1; color: white; }
+        .btn-green { background: #2ecc71; } .btn-red { background: #ff4757; }
+
+        /* 2. Login Page */
+        #login-page { display: none; height: 100vh; flex-direction: column; }
+        .app-bar { padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; background: #121212; border-bottom: 1px solid #333; }
+        .login-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .login-card { background: #1e1e1e; padding: 30px; border-radius: 20px; width: 100%; max-width: 350px; text-align: center; }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #2d2d2d; border: 1px solid #444; border-radius: 10px; color: white; }
+        #login-btn { width: 100%; padding: 14px; background: #ff5252; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; }
+
+        /* 3. Home Page */
+        #home-page { display: none; padding: 15px; }
+        .video-title { color: #ff5252; text-align: center; margin-bottom: 20px; font-size: 22px; font-style: italic; }
+        
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+            max-width: 600px; 
+            margin: auto; 
+        }
+        
+        .card { 
+            background: #1e1e1e; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            border: 1px solid #333; 
+            padding-bottom: 12px; 
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card img { 
+            width: 100%; 
+            height: 120px; 
+            object-fit: cover; 
+            background: #2a2a2a; 
+        }
+
+        .play-btn { 
+            background: #ff4757; 
+            color: white; 
+            padding: 8px 20px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: bold; 
+            margin: 10px auto 0 auto; 
+            border: none; 
+            cursor: pointer; 
+            box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); 
+            width: 85%;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="warning-overlay">
+        <div class="notice-box">
+            <div class="notice-header">🔞 ADULT WARNING NOTICE 🔞</div>
+            <p style="color: #ffda79; margin: 15px 0; font-size: 14px;">⚠️ ১৮ বছরের কম বয়সী কেউ প্রবেশ করতে পারবে না।</p>
+            <div class="btn-group">
+                <button class="btn-green" onclick="acceptWarning()">CONTINUE</button>
+                <button class="btn-red" onclick="exitApp()">EXIT</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-page">
+        <div class="app-bar"><span>LALA Admin</span><span>⋮</span></div>
+        <div class="login-wrapper">
+            <div class="login-card">
+                <h2 style="margin-bottom: 20px;">User Login</h2>
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <button id="login-btn" onclick="handleLogin()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="home-page">
+        <h2 class="video-title">Video Services</h2>
+        <div class="grid-container">
+            
+            <div class="card">
+                <img src="Screenshot_2026-05-12-19-22-40-82_948cd9899890cbd5c2798760b2b95377.jpg?v=1" alt="Thumb 1">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v1')">Play</button>
+            </div>
+
+            <div class="card">
+                <img src="Screenshot_2026-05-12-19-23-06-33_948cd9899890cbd5c2798760b2b95377.jpg?v=2" alt="Thumb 2">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v2')">Play</button>
+            </div>
+
+            <div class="card">
+                <img src="IMG_20260512_165429_423.jpg?v=3.2" alt="Thumb 3">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v3')">Play</button>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+4&v=1.2" alt="Thumb 4">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v4')">Play</button>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+5&v=1.2" alt="Thumb 5">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v5')">Play</button>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+6&v=1.2" alt="Thumb 6">
+                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v6')">Play</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // window.onload এ sessionStorage চেক করবে
+        window.onload = function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') {
+                document.getElementById('warning-overlay').style.display = 'none';
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('home-page').style.display = 'block';
+            }
+        };
+
+        function acceptWarning() {
+            document.getElementById('warning-overlay').style.display = 'none';
+            document.getElementById('login-page').style.display = 'flex';
+        }
+
+        function handleLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            if(u === "admin" && p === "1234") {
+                // localStorage এর বদলে sessionStorage ব্যবহার করা হয়েছে
+                sessionStorage.setItem('isLoggedIn', 'true');
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('home-page').style.display = 'block';
+            } else { alert("ভুল পাসওয়ার্ড!"); }
+        }
+
+        function handlePlay(ytLink, tgLink) {
+            // সাবস্ক্রাইব তথ্য localStorage এ থাকাই ভালো যাতে বারবার সাবস্ক্রাইব করতে না বলে
+            let subscribed = localStorage.getItem('isSubscribed');
+            if (!subscribed) {
+                alert("ভিডিও দেখতে প্রথমে চ্যানেলটি সাবস্ক্রাইব করুন!");
+                localStorage.setItem('isSubscribed', 'true');
+                window.open(ytLink, '_blank');
+            } else {
+                window.location.href = tgLink;
+            }
+        }
+
+        function exitApp() { window.location.href = "https://google.com"; }
+    </script>
+</body>
+</html>
