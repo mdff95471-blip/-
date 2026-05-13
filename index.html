@@ -24,7 +24,18 @@
         .btn-green, .btn-red { padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1; color: white; }
         .btn-green { background: #2ecc71; } .btn-red { background: #ff4757; }
 
-        /* 2. Login Page */
+        /* 2. Selection Menu (New) */
+        #selection-menu { display: none; padding: 20px; text-align: center; margin-top: 50px; }
+        .menu-grid { display: flex; flex-direction: column; gap: 20px; align-items: center; }
+        .menu-card { 
+            background: #1e1e1e; border: 1px solid #333; border-radius: 15px; 
+            width: 90%; max-width: 320px; padding: 30px; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.1); transition: 0.3s;
+        }
+        .menu-card:active { transform: scale(0.95); border-color: #ff4757; }
+        .menu-card h3 { color: #ff4757; margin-bottom: 10px; }
+
+        /* 3. Login Page */
         #login-page { display: none; height: 100vh; flex-direction: column; }
         .app-bar { padding: 15px; font-size: 18px; font-weight: bold; display: flex; justify-content: space-between; background: #121212; border-bottom: 1px solid #333; }
         .login-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; }
@@ -32,8 +43,8 @@
         input { width: 100%; padding: 14px; margin: 10px 0; background: #2d2d2d; border: 1px solid #444; border-radius: 10px; color: white; }
         #login-btn { width: 100%; padding: 14px; background: #ff5252; color: white; border: none; border-radius: 10px; font-weight: bold; margin-top: 10px; }
 
-        /* 3. Home Page */
-        #home-page { display: none; padding: 15px; }
+        /* 4. Content Pages */
+        #home-page, #number-page { display: none; padding: 15px; }
         .video-title { color: #ff5252; text-align: center; margin-bottom: 20px; font-size: 22px; font-style: italic; }
         
         .grid-container { 
@@ -79,17 +90,34 @@
 </head>
 <body>
 
+    <!-- 1. Adult Warning Overlay -->
     <div id="warning-overlay">
         <div class="notice-box">
             <div class="notice-header">🔞 ADULT WARNING NOTICE 🔞</div>
             <p style="color: #ffda79; margin: 15px 0; font-size: 14px;">⚠️ ১৮ বছরের কম বয়সী কেউ প্রবেশ করতে পারবে না।</p>
             <div class="btn-group">
-                <button class="btn-green" onclick="acceptWarning()">CONTINUE</button>
+                <button class="btn-green" onclick="showSelectionMenu()">CONTINUE</button>
                 <button class="btn-red" onclick="exitApp()">EXIT</button>
             </div>
         </div>
     </div>
 
+    <!-- 2. Selection Menu (New Step) -->
+    <div id="selection-menu">
+        <h2 style="margin-bottom: 30px;">Select an Option</h2>
+        <div class="menu-grid">
+            <div class="menu-card" onclick="goToLogin('number')">
+                <h3>🔢 Number List</h3>
+                <p style="font-size: 13px; color: #aaa;">View all contact numbers</p>
+            </div>
+            <div class="menu-card" onclick="goToLogin('video')">
+                <h3>🎬 Video Services</h3>
+                <p style="font-size: 13px; color: #aaa;">Access video content</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Login Page -->
     <div id="login-page">
         <div class="app-bar"><span>LALA Admin</span><span>⋮</span></div>
         <div class="login-wrapper">
@@ -102,55 +130,46 @@
         </div>
     </div>
 
+    <!-- 4. Home Page (Video) -->
     <div id="home-page">
         <h2 class="video-title">Video Services</h2>
         <div class="grid-container">
-            
             <div class="card">
                 <img src="Screenshot_2026-05-12-19-22-40-82_948cd9899890cbd5c2798760b2b95377.jpg?v=1" alt="Thumb 1">
                 <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v1')">Play</button>
             </div>
-
             <div class="card">
                 <img src="Screenshot_2026-05-12-19-23-06-33_948cd9899890cbd5c2798760b2b95377.jpg?v=2" alt="Thumb 2">
                 <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v2')">Play</button>
             </div>
+            <!-- বাকি ভিডিও কার্ডগুলো এখানে থাকবে -->
+        </div>
+    </div>
 
-            <div class="card">
-                <img src="IMG_20260512_165429_423.jpg?v=3.2" alt="Thumb 3">
-                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v3')">Play</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+4&v=1.2" alt="Thumb 4">
-                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v4')">Play</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+5&v=1.2" alt="Thumb 5">
-                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v5')">Play</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/150/ff4757/ffffff?text=Thumb+6&v=1.2" alt="Thumb 6">
-                <button class="play-btn" onclick="handlePlay('https://youtube.com/@lalagamer100', 'https://t.me/kick_vip_bot?start=v6')">Play</button>
-            </div>
-
+    <!-- 5. Number Page -->
+    <div id="number-page">
+        <h2 class="video-title" style="color: #2ecc71;">Number Selection</h2>
+        <div style="text-align: center; margin-top: 20px;">
+            <p>এখানে আপনার নাম্বার অপশনগুলো আসবে।</p>
         </div>
     </div>
 
     <script>
-        // window.onload এ sessionStorage চেক করবে
+        let selectedCategory = "";
+
         window.onload = function() {
-            if (sessionStorage.getItem('isLoggedIn') === 'true') {
-                document.getElementById('warning-overlay').style.display = 'none';
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('home-page').style.display = 'block';
-            }
+            // সেশন চেক (রিফ্রেশ করলে যাতে কার্ড মেনু থেকে শুরু হয়)
+            sessionStorage.removeItem('isLoggedIn'); 
         };
 
-        function acceptWarning() {
+        function showSelectionMenu() {
             document.getElementById('warning-overlay').style.display = 'none';
+            document.getElementById('selection-menu').style.display = 'block';
+        }
+
+        function goToLogin(category) {
+            selectedCategory = category;
+            document.getElementById('selection-menu').style.display = 'none';
             document.getElementById('login-page').style.display = 'flex';
         }
 
@@ -158,15 +177,18 @@
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
             if(u === "admin" && p === "1234") {
-                // localStorage এর বদলে sessionStorage ব্যবহার করা হয়েছে
                 sessionStorage.setItem('isLoggedIn', 'true');
                 document.getElementById('login-page').style.display = 'none';
-                document.getElementById('home-page').style.display = 'block';
+                
+                if(selectedCategory === 'video') {
+                    document.getElementById('home-page').style.display = 'block';
+                } else if(selectedCategory === 'number') {
+                    document.getElementById('number-page').style.display = 'block';
+                }
             } else { alert("ভুল পাসওয়ার্ড!"); }
         }
 
         function handlePlay(ytLink, tgLink) {
-            // সাবস্ক্রাইব তথ্য localStorage এ থাকাই ভালো যাতে বারবার সাবস্ক্রাইব করতে না বলে
             let subscribed = localStorage.getItem('isSubscribed');
             if (!subscribed) {
                 alert("ভিডিও দেখতে প্রথমে চ্যানেলটি সাবস্ক্রাইব করুন!");
