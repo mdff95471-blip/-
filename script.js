@@ -8,21 +8,21 @@ function updateNumberPage() {
                 
                 <div style="text-align: center; width: 100%; max-width: 350px;">
                     <div onclick="window.location.href='https://wa.me/YOUR_NUMBER'" 
-                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽_𝗡𝘂𝗺𝗯𝗲𝗿.jpg'); background-size: cover; background-position: center; cursor: pointer;">
+                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('WhatsApp.jpg'); background-size: cover; background-position: center; cursor: pointer;">
                     </div>
                     <div style="margin-top: 12px; color: #fff; font-weight: bold; background: #ff4757; padding: 10px; border-radius: 20px; border: 1px solid #ff6b81; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); font-size: 14px;">📱 𝗪𝗵𝗮𝘁𝘀𝗔𝗽𝗽 𝗡𝘂𝗺𝗯𝗲𝗿</div>
                 </div>
 
                 <div style="text-align: center; width: 100%; max-width: 350px;">
                     <div onclick="window.location.href='imo://YOUR_ID'" 
-                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('𝗜𝗠𝗢_𝗡𝘂𝗺𝗯𝗲𝗿.jpg'); background-size: cover; background-position: center; cursor: pointer;">
+                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('IMO.jpg'); background-size: cover; background-position: center; cursor: pointer;">
                     </div>
                     <div style="margin-top: 12px; color: #fff; font-weight: bold; background: #ff4757; padding: 10px; border-radius: 20px; border: 1px solid #ff6b81; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); font-size: 14px;">💬 𝗜𝗠𝗢 𝗡𝘂𝗺𝗯𝗲𝗿</div>
                 </div>
 
                 <div style="text-align: center; width: 100%; max-width: 350px;">
                     <div onclick="window.location.href='YOUR_SERVICE_LINK_HERE'" 
-                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('𝗩𝗶𝗱𝗲𝗼_&_𝗔𝘂𝗱𝗶𝗼_𝗖𝗮𝗹𝗹_𝗦𝗲𝗿𝘃𝗶𝗰𝗲.jpg'); background-size: cover; background-position: center; cursor: pointer;">
+                         style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('Video Service.jpg'); background-size: cover; background-position: center; cursor: pointer;">
                     </div>
                     <div style="margin-top: 12px; color: #fff; font-weight: bold; background: #ff4757; padding: 10px; border-radius: 20px; border: 1px solid #ff6b81; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); font-size: 14px;">🎥 𝗩𝗶𝗱𝗲𝗼 & 𝗔𝘂𝗱𝗶𝗼 𝗖𝗮𝗹𝗹 𝗦𝗲𝗿𝘃𝗶𝗰𝗲</div>
                 </div>
