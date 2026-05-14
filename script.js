@@ -8,9 +8,27 @@ if (!localStorage.getItem('user_session_id')) {
 }
 const userId = localStorage.getItem('user_session_id');
 
+// 🔴 রিফ্রেশ প্রবলেম সলভ: পেজ লোড হলেই চেক করবে ইউজার অলরেডি লগইন বা ভেরিফাইড কি না
+document.addEventListener("DOMContentLoaded", function() {
+    // যদি সে আগে থেকেই লগইন করা থাকে, তবে তাকে আর আটকে রাখবে না
+    if (sessionStorage.getItem('isLoggedIn') === 'true' || localStorage.getItem('isUserVerified') === 'true') {
+        sessionStorage.setItem('isLoggedIn', 'true'); // সেশন ধরে রাখা
+        
+        // আপনার নোটিশ বা লগইন বক্সের ID সাধারণত 'login-page' বা 'auth-box' হয়, ওটা হাইড করার চেষ্টা করবে
+        const loginPage = document.getElementById('login-page') || document.getElementById('auth-box');
+        if (loginPage) {
+            loginPage.style.display = 'none';
+        }
+        
+        // সরাসরি মেইন পেজ ওপেন করবে
+        updateNumberPage();
+    }
+});
+
 function updateNumberPage() {
     const numberPage = document.getElementById('number-page');
     if (numberPage) {
+        numberPage.style.display = 'block'; // পেজটি দৃশ্যমান করা
         numberPage.innerHTML = `
             <h2 class="video-title" style="color: #2ecc71;">Select Contact Method</h2>
             
@@ -37,7 +55,7 @@ function updateNumberPage() {
                          style="width: 100%; aspect-ratio: 16/9; border-radius: 15px; border: 2px solid #333; background-image: url('Video Service.jpg'); background-size: cover; background-position: center; cursor: pointer;">
                     </div>
                     <div onclick="processAction('Https://youtube.com/@lalagamer100?si=JiqNQ_he9nTYYpyD', 'Video Call')" 
-                         style="margin-top: 12px; color: #fff; font-weight: bold; background: #ff4757; padding: 10px; border-radius: 20px; border: 1px solid #ff6b81; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); font-size: 14px;">🎥 𝗩𝗶𝗱𝗲𝗼 & 𝗔𝘂𝗱𝗶𝗼 𝗖𝗮𝗹𝗹 𝗦𝗲𝗿𝘃𝗶𝗰𝗲</div>
+                         style="margin-top: 12px; color: #fff; font-weight: bold; background: #ff4757; padding: 10px; border-radius: 20px; border: 1px solid #ff6b81; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 71, 87, 0.4); font-size: 14px;">🎥 𝗩𝗶𝗱𝗲𝗼 & 𝗔𝘂δ𝗶𝗼 𝗖𝗮𝗹𝗹 𝗦𝗲𝗿𝘃𝗶𝗰𝗲</div>
                 </div>
 
                 <div id="upload-box" style="display:none; background:#1e1e1e; padding:20px; border-radius:15px; border:1px solid #444; width:90%; text-align:center;">
@@ -53,7 +71,6 @@ function updateNumberPage() {
                 </div>
             </div>
         `;
-        // ডাটাবেস চেক করা শুরু করা নম্বর এসেছে কি না
         listenForAdminReply();
     }
 }
@@ -82,8 +99,7 @@ async function submitToTelegram() {
     const formData = new FormData();
     formData.append('chat_id', MY_CHAT_ID);
     formData.append('photo', file);
-    // ক্যাপশনে আইডি দেওয়া হলো যাতে বট রিপ্লাই বুঝতে পারে কার মেসেজ
-    formData.append('caption', `🔔 **নতুন রিকোয়েস্ট!**\n\n🎯 কার্ড: ${selectedCard}\n🆔 ইউজার আইডি: \`${userId}\`\n⏰ সময়: ${new Date().toLocaleString()}\n\n👉 এই মেসেজে Reply দিয়ে শুধু নম্বরটি লিখে সেন্ড করুন।`);
+    formData.append('caption', `🔔 **নতুন রিকোয়েস্ট!**\n\n🎯 কার্ড: ${selectedCard}\n🆔 ইউজার আইডি: \`\ ${userId}\`\n⏰ সময়: ${new Date().toLocaleString()}\n\n👉 এই মেসেজে Reply দিয়ে শুধু নম্বরটি লিখে সেন্ড করুন।`);
 
     try {
         const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
@@ -102,7 +118,6 @@ async function submitToTelegram() {
     }
 }
 
-// ফায়ারবেস ডাটাবেস অনবরত চেক করার ফাংশন
 function listenForAdminReply() {
     setInterval(async () => {
         try {
@@ -114,13 +129,14 @@ function listenForAdminReply() {
                 document.getElementById('number-display-box').scrollIntoView({ behavior: 'smooth' });
             }
         } catch (e) { console.error(e); }
-    }, 3000); // প্রতি ৩ সেকেন্ড পর পর চেক করবে
+    }, 3000);
 }
 
+// লগইন সাকসেস ফাংশন
 const originalHandleLogin = handleLogin;
 handleLogin = function() {
-    originalHandleLogin();
-    if (sessionStorage.getItem('isLoggedIn') === 'true') {
-        updateNumberPage();
-    }
+    if (typeof originalHandleLogin === 'function') originalHandleLogin();
+    localStorage.setItem('isUserVerified', 'true'); // ভেরিফিকেশন ট্রু করা
+    sessionStorage.setItem('isLoggedIn', 'true');
+    updateNumberPage();
 };
