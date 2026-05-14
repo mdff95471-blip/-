@@ -5,8 +5,8 @@
 const APP_CONFIG = {
     // ১. মেইন সিলেকশন পেজের দুটি কার্ডের ছবি
     mainMenu: {
-        numberListImage: "file_00000000ddfc7208bd0baf5324ead328.png", // নাম্বার কার্ডের ছবি
-        videoServicesImage: "xxx.jpg"           // ভিডিও কার্ডের ছবি
+        numberListImage: "photo.jpg", // নাম্বার কার্ডের ছবি
+        videoServicesImage: "photo.jpg"           // ভিডিও কার্ডের ছবি
     },
 
     // ২. পাসওয়ার্ড দেওয়ার পর নাম্বার পেজের দুটি কার্ডের ছবি ও লিঙ্ক
